@@ -1,0 +1,16 @@
+.main-btn {
+  background-color: var(--red);
+  font-weight: bold;
+  outline: none;
+  border: none;
+  height: 40px;
+  padding: 0 15px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: var(--transition);
+  color: var(--light);
+  &:hover {
+    background-color: #ff7519a5;
+  }
+}

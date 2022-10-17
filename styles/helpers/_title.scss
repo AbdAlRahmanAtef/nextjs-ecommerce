@@ -1,0 +1,18 @@
+.main-title {
+  font-size: 40px;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  color: var(--text);
+  padding-bottom: 20px;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    background-color: var(--text);
+    bottom: 0;
+    left: calc(50% - 50px);
+  }
+}

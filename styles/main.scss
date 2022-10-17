@@ -1,0 +1,45 @@
+@use "./grid";
+@use "./helpers/btns";
+@use "./helpers/title";
+@use "./components/banner";
+@use "./components/product";
+@use "./components/layout";
+@use "./components/product-details";
+@use "./components/cart";
+
+:root {
+  --bg-light: #eeee;
+  --light: #fff;
+  --dark: #010101;
+  --red: #ff5a19fb;
+  --text: #261150;
+  --tranistion: 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  text-transform: capitalize;
+}
+
+a {
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  width: 10px;
+  box-shadow: inset 5px 0 10px #01010160;
+}
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  background-color: var(--text);
+  border-radius: 5px;
+}

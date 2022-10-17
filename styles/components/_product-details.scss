@@ -1,0 +1,128 @@
+.product-details {
+  overflow: hidden;
+  .product-details-container {
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    @media (max-width: 767px) {
+      flex-direction: column;
+      align-items: center;
+    }
+    .image-container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+      .main-image {
+        width: 300px;
+        background-color: var(--bg-light);
+        border-radius: 10px;
+        transition: var(--tranistion);
+        cursor: pointer;
+        &:hover {
+          background-color: var(--red);
+        }
+      }
+      .small-images {
+        display: flex;
+        gap: 10px;
+        .small-image {
+          width: 60px;
+          background-color: var(--bg-light);
+          border-radius: 8px;
+          transition: var(--tranistion);
+          cursor: pointer;
+          &.active,
+          &:hover {
+            background-color: var(--red);
+          }
+        }
+      }
+    }
+    .info {
+      color: var(--text);
+      h2 {
+        font-size: 30px;
+        font-weight: 900;
+        margin-bottom: 20px;
+      }
+      .stars {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        svg {
+          color: var(--red);
+        }
+      }
+      .details-info {
+        margin-bottom: 15px;
+        h3 {
+          font-size: 20px;
+        }
+        p {
+          font-size: 16px;
+        }
+      }
+      .price {
+        font-size: 30px;
+        font-weight: 900;
+        color: var(--red);
+        margin-bottom: 20px;
+      }
+      .add-to-cart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        button {
+          height: 40px;
+          width: 150px;
+          cursor: pointer;
+          color: var(--text);
+          font-size: 18px;
+          transition: var(--tranistion);
+          &:focus {
+            outline: none;
+          }
+          &:hover {
+            transform: scale(1.05);
+          }
+          &:last-child {
+            color: var(--light);
+            background-color: var(--red);
+            border-color: transparent;
+          }
+        }
+      }
+    }
+  }
+  .may-like {
+    margin-bottom: 30px;
+    h2 {
+      text-align: center;
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 30px;
+    }
+    .may-like-items {
+      transition: var(--tranistion);
+      display: flex;
+      justify-content: center;
+      animation: scroll-to-left 8s linear infinite ;
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+  }
+}
+
+@keyframes scroll-to-left {
+  0% {
+    transform: translateX(300px);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
