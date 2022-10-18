@@ -8,13 +8,12 @@ import {
   AiOutlinePlus,
 } from "react-icons/ai";
 import Product from "../../components/Product";
-import { Context } from "../../context/stateContext";
+import { useCart } from "../../context/cartContext";
 
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setindex] = useState(0);
-  const { cart, addToCart } = useContext(Context);
-  console.log(cart);
+  const { cart, addToCart } = useCart();
   return (
     <div className="product-details">
       <div className="container">

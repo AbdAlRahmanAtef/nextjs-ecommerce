@@ -4,10 +4,10 @@ import logo from "../assets/logo.png";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import Image from "next/image";
 import Cart from "./Cart";
-import { Context } from "../context/stateContext";
+import { Context, useCart } from "../context/cartContext";
 
 const Navbar = () => {
-  const { cart, showCart, setShowCart } = useContext(Context);
+  const { cart, showCart, setShowCart } = useCart();
 
   const [background, setBackground] = useState(false);
   const changeNavStyle = () => {
