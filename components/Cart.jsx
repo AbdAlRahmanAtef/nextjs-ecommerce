@@ -12,7 +12,7 @@ import getStripe from "../lib/getStripe";
 
 const Cart = () => {
   const cartRef = useRef();
-  const { cart, removeItem, changItemQuantity } = useCart();
+  const { cart, showCart, removeItem, changItemQuantity } = useCart();
   const { items } = cart;
 
   const handleCheckout = async () => {
@@ -37,8 +37,8 @@ const Cart = () => {
 
   return (
     <>
-      <div className="overlay"></div>
-      <div className="cart-container" ref={cartRef}>
+      {showCart && <div className="overlay"></div>}
+      <div className={`cart-container ${showCart && "show"}`} ref={cartRef}>
         {items?.length < 1 ? (
           <div className="empty-cart">
             <h3>You have ({cart.itemsCount}) Items</h3>

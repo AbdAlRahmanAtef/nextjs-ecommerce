@@ -21,8 +21,8 @@ const Navbar = () => {
   useEffect(() => window.addEventListener("scroll", changeNavStyle));
 
   return (
-    <nav>
-      <div className={`container ${background && "bg-colored"}`}>
+    <nav className={` ${background && "bg-colored"}`}>
+      <div className="container">
         <Link href="/">
           <Image height={60} width={60} src={logo} alt="" />
         </Link>
@@ -31,7 +31,7 @@ const Navbar = () => {
           <span className="qty">{cart.itemsCount}</span>
         </div>
       </div>
-      {showCart && <Cart />}
+      <Cart />
     </nav>
   );
 };
