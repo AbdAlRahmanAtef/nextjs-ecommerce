@@ -1,22 +1,24 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useContext,
-  createContext,
-  useCallback,
-} from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
 import toast from "react-hot-toast";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  const storedItems = "CART_ITEMS";
+
+  // if (typeof window !== "undefined") {
+  //   setInitial(JSON.parse(window.localStorage.getItem(storedItems)));
+  // }
+
+  const saveJSON = (items) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(storedItems, JSON.stringify(items));
+    }
+  };
+
   const [showCart, setShowCart] = useState(false);
-  const [test, setTest] = useState([]);
-  const [initialItems, setInitialItems] = useState([]);
 
   const caluculateCartTotal = (items) => {
-    saveJson(items);
     const itemsCount = items?.reduce((acc, currenct) => acc + currenct.qty, 0);
     const cartTotal = items?.reduce(
       (acc, currenct) => acc + currenct.qty * currenct.price,
@@ -30,10 +32,13 @@ export const CartProvider = ({ children }) => {
     itemsCount: 0,
     cartTotal: 0,
   });
-  const storedItems = "CART_ITEMS";
 
-  const saveJson = (data) =>
-    localStorage.setItem(storedItems, JSON.stringify(data));
+  useEffect(() => {
+    if (localStorage.getItem(storedItems)) {
+      const initial = JSON.parse(localStorage.getItem(storedItems));
+      setcart({ items: initial, ...caluculateCartTotal(initial) });
+    }
+  }, []);
 
   const addToCart = (product) => {
     const { items = [] } = cart;
@@ -45,7 +50,7 @@ export const CartProvider = ({ children }) => {
     }
     const total = caluculateCartTotal(items);
     setcart({ items, ...total });
-    saveJson(items);
+    saveJSON(items);
     toast.success(`${product.name} added successfully`);
   };
 
@@ -63,6 +68,7 @@ export const CartProvider = ({ children }) => {
     }
     const total = caluculateCartTotal(items);
     setcart({ items, ...total });
+    saveJSON(items);
   };
 
   const removeItem = (product) => {
@@ -73,6 +79,7 @@ export const CartProvider = ({ children }) => {
     }
     const total = caluculateCartTotal(items);
     setcart({ items, ...total });
+    saveJSON(items);
   };
 
   return (
