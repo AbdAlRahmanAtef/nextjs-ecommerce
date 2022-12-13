@@ -1,5 +1,5 @@
-import React, { useContext, useRef } from "react";
-import { Context, useCart } from "../context/cartContext";
+import React, { useEffect, useRef } from "react";
+import { useCart } from "../context/cartContext";
 import { urlFor } from "../lib/client";
 import {
   AiOutlineShopping,
@@ -11,9 +11,29 @@ import toast from "react-hot-toast";
 import getStripe from "../lib/getStripe";
 
 const Cart = () => {
-  const cartRef = useRef();
-  const { cart, showCart, removeItem, changItemQuantity } = useCart();
+  const {
+    cart,
+    cartRef,
+    showCart,
+    setShowCart,
+    removeItem,
+    changItemQuantity,
+  } = useCart();
   const { items } = cart;
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (showCart && cartRef && !cartRef.current.contains(e.target)) {
+        setShowCart(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  }, [showCart]);
 
   const handleCheckout = async () => {
     const stripe = await getStripe();
@@ -47,7 +67,7 @@ const Cart = () => {
           </div>
         ) : (
           <>
-            <div>
+            <div className="cart-items">
               <h3>You have ({cart.itemsCount}) Items</h3>
               {items?.map((item) => (
                 <div className="cart-item" key={item._id}>
@@ -57,12 +77,12 @@ const Cart = () => {
                       <p>{item.name}</p>
                       <div className="quantity">
                         <AiOutlineMinus
-                          size={30}
+                          size={25}
                           onClick={() => changItemQuantity(item, -1)}
                         />
                         <span className="qty-num">{item.qty}</span>{" "}
                         <AiOutlinePlus
-                          size={30}
+                          size={25}
                           onClick={() => changItemQuantity(item, 1)}
                         />{" "}
                       </div>
@@ -72,7 +92,7 @@ const Cart = () => {
                     <span>${item.price}</span>
                     <RiDeleteBin6Line
                       onClick={() => removeItem(item)}
-                      size={30}
+                      size={25}
                     />
                   </div>
                 </div>

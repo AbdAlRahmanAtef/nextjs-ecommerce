@@ -1,13 +1,13 @@
 import Link from "next/link";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import logo from "../assets/logo.png";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import Image from "next/image";
 import Cart from "./Cart";
-import { Context, useCart } from "../context/cartContext";
+import { useCart } from "../context/cartContext";
 
 const Navbar = () => {
-  const { cart, showCart, setShowCart } = useCart();
+  const { cart, cartIconRef, showCart, setShowCart } = useCart();
 
   const [background, setBackground] = useState(false);
   const changeNavStyle = () => {
@@ -26,7 +26,7 @@ const Navbar = () => {
         <Link href="/">
           <Image height={60} width={60} src={logo} alt="" />
         </Link>
-        <div className="cart" onClick={() => setShowCart(!showCart)}>
+        <div className="cart" ref={cartIconRef}>
           <HiOutlineShoppingCart size={30} />
           <span className="qty">{cart.itemsCount}</span>
         </div>

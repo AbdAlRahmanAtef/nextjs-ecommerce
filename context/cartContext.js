@@ -1,22 +1,48 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  createContext,
+  useRef,
+} from "react";
 import toast from "react-hot-toast";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const storedItems = "CART_ITEMS";
+  const [showCart, setShowCart] = useState(false);
+  const cartRef = useRef();
+  const cartIconRef = useRef();
 
-  // if (typeof window !== "undefined") {
-  //   setInitial(JSON.parse(window.localStorage.getItem(storedItems)));
-  // }
+  useEffect(() => {
+    const handler = (e) => {
+      if (showCart && cartRef && !cartRef.current.contains(e.target)) {
+        setShowCart(false);
+      } else if (cartIconRef && cartIconRef.current.contains(e.target)) {
+        setShowCart((prev) => !prev);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  }, [showCart]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", () => setShowCart(false));
+    }
+  });
+
+  const storedItems = "CART_ITEMS";
 
   const saveJSON = (items) => {
     if (typeof window !== "undefined") {
       localStorage.setItem(storedItems, JSON.stringify(items));
     }
   };
-
-  const [showCart, setShowCart] = useState(false);
 
   const caluculateCartTotal = (items) => {
     const itemsCount = items?.reduce((acc, currenct) => acc + currenct.qty, 0);
@@ -91,6 +117,8 @@ export const CartProvider = ({ children }) => {
         addToCart,
         changItemQuantity,
         removeItem,
+        cartRef,
+        cartIconRef,
       }}
     >
       {children}
